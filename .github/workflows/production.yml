@@ -1,27 +1,27 @@
+name: Deploy Only If Tag Is On Upgrading
 
-name: Deploy to Production
-# Controls when the workflow will run
 on:
   push:
-    branches: ["main"]
-    tags:        
-      - '*' 
+    # Trigger for any tag push
+    tags:
+      - "*"
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 jobs:
-
   production:
     if: "startsWith(github.ref, 'refs/tags/')"
     runs-on: ubuntu-latest
     steps:
-      - name: Ensure commit is on main
-          run: |
-            # Check if the commit of the current ref is contained in main
-            if git branch --contains HEAD | grep -q "main"; then
-              echo "Commit is on main, proceeding..."
-            else
-              echo "Commit is not on main, exiting..."
-              exit 1
-      - run: |
-          echo Production run successfully
+      - uses: actions/checkout@v3
+      
+      - name: Ensure commit is on upgrading
+        run: |
+          # Replace `true` with your actual check, e.g.:
+          # if git branch --contains HEAD | grep -q upgrading; then
+          if git branch --contains HEAD | grep -q "upgrading"; then
+            echo "Commit is on upgrading, proceeding..."
+          else
+            echo "Commit is not on upgrading, exiting..."
+            exit 1
+          fi
+
+      - run: echo "Upgrading run successfully"
