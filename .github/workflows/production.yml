@@ -12,7 +12,16 @@ on:
 jobs:
 
   production:
+    if: "startsWith(github.ref, 'refs/tags/')"
     runs-on: ubuntu-latest
     steps:
+      - name: Ensure commit is on main
+          run: |
+            # Check if the commit of the current ref is contained in main
+            if git branch --contains HEAD | grep -q "main"; then
+              echo "Commit is on main, proceeding..."
+            else
+              echo "Commit is not on main, exiting..."
+              exit 1
       - run: |
           echo Production run successfully
