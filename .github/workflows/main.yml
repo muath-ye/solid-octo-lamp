@@ -7,7 +7,14 @@ on:
   workflow_dispatch:
 jobs:
   development:
+    if: "startsWith(github.ref, 'refs/tags/')"
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo Development run successfully php 8.1
+          if git branch --contains HEAD | grep -q "main"; then
+            echo "Commit is on main, proceeding..."
+            echo Development run successfully php 8.1
+          else
+            echo "Commit is not on main, exiting..."
+            exit 1
+          fi
