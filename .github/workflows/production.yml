@@ -12,12 +12,13 @@ on:
 jobs:
 
   production:
-    run: |
-      # "main" must appear in the list of branches containing HEAD
-      if git branch --contains HEAD | grep -q "main"; then
-        echo "Tag's commit is on main — proceeding..."
-      else
-        echo "Tag's commit is NOT on main — exiting."
-        exit 1
-      - run: |
-          echo Production run successfully
+    steps:
+      run: |
+        # "main" must appear in the list of branches containing HEAD
+        if git branch --contains HEAD | grep -q "main"; then
+          echo "Tag's commit is on main — proceeding..."
+        else
+          echo "Tag's commit is NOT on main — exiting."
+          exit 1
+        - run: |
+            echo Production run successfully
