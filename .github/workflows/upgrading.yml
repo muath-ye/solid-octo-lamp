@@ -2,7 +2,7 @@ name: Deploy to Staging 8.2
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "mian" branch
-  push:
+  # push:
     # branches: ["upgrading"]
   workflow_dispatch:
 jobs:
