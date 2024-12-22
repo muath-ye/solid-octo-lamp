@@ -17,7 +17,7 @@ jobs:
         run: |
           # Replace `true` with your actual check, e.g.:
           # if git branch --contains HEAD | grep -q main; then
-          if true; then
+          if git branch --contains HEAD | grep -q "main"; then
             echo "Commit is on main, proceeding..."
           else
             echo "Commit is not on main, exiting..."
