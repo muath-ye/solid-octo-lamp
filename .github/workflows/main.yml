@@ -1,0 +1,13 @@
+name: Deploy to Staging
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "mian" branch
+  push:
+    # branches: ["mian"]
+  workflow_dispatch:
+jobs:
+  development:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo Development run successfully php 8.1
