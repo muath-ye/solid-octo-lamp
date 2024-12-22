@@ -1,4 +1,4 @@
-name: Deploy Only If Tag Is On Upgrading
+name: Deploy Only If Tag Is On Main
 
 on:
   push:
@@ -13,15 +13,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Ensure commit is on upgrading
+      - name: Ensure commit is on main
         run: |
           # Replace `true` with your actual check, e.g.:
-          # if git branch --contains HEAD | grep -q upgrading; then
-          if git branch --contains HEAD | grep -q "upgrading"; then
-            echo "Commit is on upgrading, proceeding..."
+          # if git branch --contains HEAD | grep -q main; then
+          if git branch --contains HEAD | grep -q "main"; then
+            echo "Commit is on main, proceeding..."
           else
-            echo "Commit is not on upgrading, exiting..."
+            echo "Commit is not on main, exiting..."
             exit 1
           fi
 
-      - run: echo "Upgrading run successfully"
+      - run: echo "Production run successfully"
