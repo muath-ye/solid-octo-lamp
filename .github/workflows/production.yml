@@ -8,19 +8,18 @@ on:
 
 jobs:
   production:
+    if: "startsWith(github.ref, 'refs/tags/')"
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
-
-      - name: Check if tagged commit is on main
+      
+      - name: Ensure commit is on main
         run: |
-          # "main" must appear in the list of branches containing HEAD
+          # Check if the commit of the current ref is contained in main
           if git branch --contains HEAD | grep -q "main"; then
-            echo "Tag's commit is on main — proceeding..."
+            echo "Commit is on main, proceeding..."
           else
-            echo "Tag's commit is NOT on main — exiting."
+            echo "Commit is not on main, exiting..."
             exit 1
 
-      - name: Deploy
-        run: echo "Production run successfully"
+      - run: echo "Production run successfully"
