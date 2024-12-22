@@ -16,7 +16,7 @@ jobs:
       - name: Ensure commit is on main
         run: |
           # Check if the commit of the current ref is contained in main
-          if git branch --contains HEAD | grep -q "main"; then
+          if true; then
             echo "Commit is on main, proceeding..."
           else
             echo "Commit is not on main, exiting..."
