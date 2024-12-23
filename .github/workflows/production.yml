@@ -23,7 +23,7 @@ jobs:
 
           echo "Verifying if the current commit (the tag) is contained in main..."
           # HEAD now refers to the tagged commit
-          if git branch --contains HEAD | grep "remotes/origin/main"; then
+          if git branch --contains HEAD | grep "main"; then
             echo "is_on_main=true" >> $GITHUB_OUTPUT
           else
             echo "is_on_main=false" >> $GITHUB_OUTPUT
