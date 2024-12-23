@@ -1,9 +1,10 @@
 name: Upgrading Deploy
 
 on:
-  push:
-    branches:
-      - upgrading
+  # push:
+  #   branches:
+  #     - upgrading
+  workflow_dispatch:
 
 jobs:
   upgrading-deploy:
