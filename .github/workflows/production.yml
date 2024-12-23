@@ -1,17 +1,40 @@
+name: Production Deploy
 
-name: Deploy to Production
-# Controls when the workflow will run
 on:
   push:
-    tags:        
-      - '*' 
+    tags:
+      - "*"
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 jobs:
-
-  production:
+  production-deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo Production run successfully
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          # IMPORTANT: We need full history to check if the commit is on main
+          fetch-depth: 0
+
+      - name: Check if the tagged commit is on main
+        id: check_main
+        run: |
+          echo "Fetching remote main branch..."
+          git fetch origin main
+
+          echo "Verifying if the current commit (the tag) is contained in main..."
+          # HEAD now refers to the tagged commit
+          if git branch --contains HEAD | grep "remotes/origin/main"; then
+            echo "is_on_main=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_on_main=false" >> $GITHUB_OUTPUT
+
+      - name: Deploy to Production
+        if: steps.check_main.outputs.is_on_main == 'true'
+        run: |
+          echo "✓ The tagged commit is on main. Proceeding with Production deployment. 8.1"
+          # -------------------------------------------------
+          # Here go your actual production deployment commands
+          # e.g.,
+          # ssh -i ~/.ssh/id_rsa user@prod-server \
+          #   "cd /path/to/production && git pull origin main && ./deploy.sh"
+          # -------------------------------------------------
