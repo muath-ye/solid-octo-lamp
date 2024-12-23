@@ -27,6 +27,7 @@ jobs:
             echo "is_on_main=true" >> $GITHUB_OUTPUT
           else
             echo "is_on_main=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Deploy to Production
         if: steps.check_main.outputs.is_on_main == 'true'
