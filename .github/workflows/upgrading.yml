@@ -1,20 +1,18 @@
-name: Deploy to Staging 8.2
-# Controls when the workflow will run
+name: Upgrading Deploy
+
 on:
-  # Triggers the workflow on push or pull request events but only for the "mian" branch
-  # push:
-    # branches: ["mian"]
-  workflow_dispatch:
+  push:
+    branches:
+      - upgrading
+
 jobs:
-  development:
-    if: "startsWith(github.ref, 'refs/tags/')"
+  upgrading-deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          if git branch --contains HEAD | grep -q "upgrading"; then
-            echo "Commit is on upgrading, proceeding..."
-            echo Development run successfully php 8.2
-          else
-            echo "Commit is not on upgrading, exiting..."
-            exit 1
-          fi
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Deploy to Upgrading environment
+        run: |
+          echo "Deploying to Upgrading environment 8.2 ..."
+          # Your upgrading environment commands go here
